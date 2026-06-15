@@ -1,0 +1,232 @@
+<h2 class="sr-only">Agent-ready data architecture showing eleven layers (a–k) stacked top to bottom: agent orchestration, machine-scale access, semantic, active metadata, context and lineage, memory, retrieval, and supply layers, with four cross-cutting vertical strips for governance, sovereignty, cost discipline, and authorization. Below a divider sits the polyglot persistence row with seven physical stores.</h2>
+<style>
+*{box-sizing:border-box}
+.ca {--bg:#F1EFE8;--bd:#5F5E5A;--t1:#444441;--t2:#5F5E5A}
+.cg {--bg:#F1EFE8;--bd:#5F5E5A;--t1:#444441;--t2:#5F5E5A}
+.cs {--bg:#FAEEDA;--bd:#854F0B;--t1:#633806;--t2:#854F0B}
+.cm {--bg:#E1F5EE;--bd:#0F6E56;--t1:#085041;--t2:#0F6E56}
+.cx {--bg:#EEEDFE;--bd:#534AB7;--t1:#3C3489;--t2:#534AB7}
+.cy {--bg:#FBEAF0;--bd:#993556;--t1:#72243E;--t2:#993556}
+.cr {--bg:#E6F1FB;--bd:#185FA5;--t1:#0C447C;--t2:#185FA5}
+.cf {--bg:#EAF3DE;--bd:#3B6D11;--t1:#27500A;--t2:#3B6D11}
+.hg {--bg:#FAECE7;--bd:#993C1D;--t1:#712B13;--t2:#993C1D}
+.hs {--bg:#FCEBEB;--bd:#A32D2D;--t1:#791F1F;--t2:#A32D2D}
+.hc {--bg:#FAEEDA;--bd:#854F0B;--t1:#633806;--t2:#854F0B}
+.ha {--bg:#EEEDFE;--bd:#534AB7;--t1:#3C3489;--t2:#534AB7}
+.sg {--bg:#EEEDFE;--bd:#534AB7;--t1:#3C3489;--t2:#534AB7}
+.sd {--bg:#E1F5EE;--bd:#0F6E56;--t1:#085041;--t2:#0F6E56}
+.sv {--bg:#E6F1FB;--bd:#185FA5;--t1:#0C447C;--t2:#185FA5}
+.sk {--bg:#EAF3DE;--bd:#3B6D11;--t1:#27500A;--t2:#3B6D11}
+.sa {--bg:#FAEEDA;--bd:#854F0B;--t1:#633806;--t2:#854F0B}
+.sc {--bg:#FBEAF0;--bd:#993556;--t1:#72243E;--t2:#993556}
+.ss {--bg:#F1EFE8;--bd:#5F5E5A;--t1:#444441;--t2:#5F5E5A}
+@media(prefers-color-scheme:dark){
+  .ca{--bg:#444441;--bd:#B4B2A9;--t1:#D3D1C7;--t2:#B4B2A9}
+  .cg{--bg:#444441;--bd:#B4B2A9;--t1:#D3D1C7;--t2:#B4B2A9}
+  .cs{--bg:#633806;--bd:#EF9F27;--t1:#FAC775;--t2:#EF9F27}
+  .cm{--bg:#085041;--bd:#5DCAA5;--t1:#9FE1CB;--t2:#5DCAA5}
+  .cx{--bg:#3C3489;--bd:#AFA9EC;--t1:#CECBF6;--t2:#AFA9EC}
+  .cy{--bg:#72243E;--bd:#ED93B1;--t1:#F4C0D1;--t2:#ED93B1}
+  .cr{--bg:#0C447C;--bd:#85B7EB;--t1:#B5D4F4;--t2:#85B7EB}
+  .cf{--bg:#27500A;--bd:#97C459;--t1:#C0DD97;--t2:#97C459}
+  .hg{--bg:#712B13;--bd:#F0997B;--t1:#F5C4B3;--t2:#F0997B}
+  .hs{--bg:#791F1F;--bd:#F09595;--t1:#F7C1C1;--t2:#F09595}
+  .hc{--bg:#633806;--bd:#EF9F27;--t1:#FAC775;--t2:#EF9F27}
+  .ha{--bg:#3C3489;--bd:#AFA9EC;--t1:#CECBF6;--t2:#AFA9EC}
+  .sg{--bg:#3C3489;--bd:#AFA9EC;--t1:#CECBF6;--t2:#AFA9EC}
+  .sd{--bg:#085041;--bd:#5DCAA5;--t1:#9FE1CB;--t2:#5DCAA5}
+  .sv{--bg:#0C447C;--bd:#85B7EB;--t1:#B5D4F4;--t2:#85B7EB}
+  .sk{--bg:#27500A;--bd:#97C459;--t1:#C0DD97;--t2:#97C459}
+  .sa{--bg:#633806;--bd:#EF9F27;--t1:#FAC775;--t2:#EF9F27}
+  .sc{--bg:#72243E;--bd:#ED93B1;--t1:#F4C0D1;--t2:#ED93B1}
+  .ss{--bg:#444441;--bd:#B4B2A9;--t1:#D3D1C7;--t2:#B4B2A9}
+}
+.b  {background:var(--bg);border:0.5px solid var(--bd);border-radius:8px}
+.t1 {color:var(--t1);font-size:12px;font-weight:500}
+.t2 {color:var(--t2);font-size:11px;line-height:1.35;margin-bottom:5px}
+.pl {color:var(--t2);border:0.5px solid var(--t2);background:transparent;font-size:11px;padding:1px 7px;border-radius:10px;white-space:nowrap}
+.w  {padding:1rem 0;font-family:var(--font-sans)}
+.rw {display:flex;gap:5px}
+.cl {display:flex;flex-direction:column;gap:5px}
+.lx {padding:8px 10px;cursor:pointer}
+.lx:hover{filter:brightness(0.95)}
+.lh {display:flex;align-items:baseline;gap:6px;margin-bottom:3px}
+.li {color:var(--t2);font-size:11px;font-family:var(--font-mono)}
+.ps {display:flex;flex-wrap:wrap;gap:3px}
+.vc {display:flex;gap:4px;width:120px;min-width:120px}
+.vs {flex:1;border-radius:8px;border:0.5px solid var(--bd);background:var(--bg);color:var(--t1);writing-mode:vertical-lr;font-size:11px;font-weight:500;padding:10px 3px;overflow:hidden;white-space:nowrap;cursor:pointer;display:flex;align-items:center;line-height:1.4}
+.vs:hover{filter:brightness(0.95)}
+.sr {display:flex;gap:5px}
+.st {flex:1;border-radius:8px;border:0.5px solid var(--bd);background:var(--bg);padding:8px 5px;text-align:center;cursor:pointer}
+.st:hover{filter:brightness(0.95)}
+.sn {color:var(--t1);font-size:11px;font-weight:500;display:block;margin-bottom:3px}
+.sk2{color:var(--t2);font-size:11px;line-height:1.35}
+.dr {display:flex;align-items:center;gap:6px;margin:4px 0}
+.dl {flex:1;height:0.5px;background:var(--color-border-tertiary)}
+.db {font-size:11px;font-weight:500;color:var(--color-text-tertiary);letter-spacing:0.04em;white-space:nowrap}
+</style>
+
+<div class="w">
+
+  <div class="b lx ca rw" style="margin-bottom:5px;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px" onclick="sendPrompt('What technologies make up the agent orchestration tier and how do MCP clients connect to the layers below?')">
+    <div class="rw" style="align-items:center;gap:10px;flex-wrap:wrap">
+      <span style="font-size:13px;font-weight:500;color:var(--t1)" class="ca">Agent orchestration</span>
+      <div class="ps ca">
+        <span class="pl">LangGraph</span>
+        <span class="pl">LangChain</span>
+        <span class="pl">CrewAI</span>
+        <span class="pl">AutoGen</span>
+        <span class="pl">MCP clients</span>
+      </div>
+    </div>
+    <span style="font-size:11px;color:var(--t2)" class="ca">queries all layers ↓</span>
+  </div>
+
+  <div class="rw" style="align-items:stretch">
+
+    <div class="cl" style="flex:1">
+
+      <div class="b lx cg" onclick="sendPrompt('Explain the machine-scale access layer — why Apache Arrow Flight and MCP matter at agent query volumes, and how query federation works.')">
+        <div class="lh"><span class="li cg">g</span><span class="t1 cg">Machine-scale access</span></div>
+        <div class="t2 cg">Standard open interfaces engineered for agent query volumes</div>
+        <div class="ps cg">
+          <span class="pl">REST / GraphQL</span>
+          <span class="pl">Apache Arrow Flight</span>
+          <span class="pl">MCP protocol</span>
+          <span class="pl">OpenAPI</span>
+          <span class="pl">query federation</span>
+          <span class="pl">rate limiting</span>
+        </div>
+      </div>
+
+      <div class="rw">
+        <div class="b lx cs" style="flex:1" onclick="sendPrompt('What does the semantic layer do in agent-ready data architecture? How do dbt metrics and Cube.dev enforce shared meaning of business terms at query time?')">
+          <div class="lh"><span class="li cs">a</span><span class="t1 cs">Semantic layer</span></div>
+          <div class="t2 cs">Shared meaning of all business terms and metrics</div>
+          <div class="ps cs">
+            <span class="pl">dbt metrics</span>
+            <span class="pl">Cube.dev</span>
+            <span class="pl">OpenMetadata</span>
+            <span class="pl">business glossary</span>
+          </div>
+        </div>
+        <div class="b lx cm" style="flex:1" onclick="sendPrompt('What makes metadata "active" in an agentic system? How does DataHub or OpenMetadata serve schema and lineage queries at agent runtime, not just at design time?')">
+          <div class="lh"><span class="li cm">b</span><span class="t1 cm">Active metadata</span></div>
+          <div class="t2 cm">Schema registry and catalog queryable at moment of use</div>
+          <div class="ps cm">
+            <span class="pl">DataHub</span>
+            <span class="pl">OpenMetadata</span>
+            <span class="pl">Collibra</span>
+            <span class="pl">schema registry</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="rw">
+        <div class="b lx cx" style="flex:1" onclick="sendPrompt('What is the context and lineage layer in agent-ready data architecture? How does OpenLineage give agents institutional memory of decisions and prior data flows?')">
+          <div class="lh"><span class="li cx">c</span><span class="t1 cx">Context & lineage</span></div>
+          <div class="t2 cx">Decision logic and causal lineage as institutional memory</div>
+          <div class="ps cx">
+            <span class="pl">OpenLineage</span>
+            <span class="pl">Marquez</span>
+            <span class="pl">decision logs</span>
+            <span class="pl">workflow state</span>
+          </div>
+        </div>
+        <div class="b lx cy" style="flex:1" onclick="sendPrompt('How does the persistent memory layer work across agent steps and sessions? Compare Zep, Mem0, episodic memory, and working memory — and how is each governed?')">
+          <div class="lh"><span class="li cy">d</span><span class="t1 cy">Memory layer</span></div>
+          <div class="t2 cy">Governed agent memory persistent across steps and sessions</div>
+          <div class="ps cy">
+            <span class="pl">Zep</span>
+            <span class="pl">Mem0</span>
+            <span class="pl">episodic store</span>
+            <span class="pl">working memory</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="b lx cr" onclick="sendPrompt('How is governance enforced before retrieval in the retrieval layer? What is chunk lineage and why does it matter for multimodal and unstructured data?')">
+        <div class="lh"><span class="li cr">e</span><span class="t1 cr">Retrieval layer</span></div>
+        <div class="t2 cr">Governance enforced before retrieval of unstructured and multimodal data</div>
+        <div class="ps cr">
+          <span class="pl">pgvector</span>
+          <span class="pl">Pinecone</span>
+          <span class="pl">Weaviate</span>
+          <span class="pl">LlamaIndex</span>
+          <span class="pl">multimodal index</span>
+          <span class="pl">re-ranking</span>
+          <span class="pl">chunk lineage</span>
+        </div>
+      </div>
+
+      <div class="b lx cf" onclick="sendPrompt('What makes the supply layer reliable and quality-validated for agentic systems? How do CDC, Great Expectations, and data quality SLAs work together?')">
+        <div class="lh"><span class="li cf">f</span><span class="t1 cf">Supply layer</span></div>
+        <div class="t2 cf">Fresh, quality-validated data from all source systems</div>
+        <div class="ps cf">
+          <span class="pl">Kafka / Pub/Sub</span>
+          <span class="pl">dbt</span>
+          <span class="pl">Great Expectations</span>
+          <span class="pl">Airflow</span>
+          <span class="pl">Fivetran</span>
+          <span class="pl">CDC</span>
+          <span class="pl">quality SLA</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="vc">
+      <div class="vs hg" onclick="sendPrompt('Explain the governance cross-cutting layer: access control, identity-scoped access, lineage, point-in-time reproducibility, and ownership expressed and enforced as data.')">
+        h · Governance · access control · lineage · identity-scoped · ownership as data
+      </div>
+      <div class="vs hs" onclick="sendPrompt('What is the data sovereignty layer in agent-ready architecture? How are classification labels and data residency enforced by design, not just by policy?')">
+        i · Sovereignty · residency · classification · jurisdictional by design
+      </div>
+      <div class="vs hc" onclick="sendPrompt('How does cost discipline work at agent scale? How do you attribute and cap costs per agent, per query, and per tenant — and surface them in real time?')">
+        j · Cost discipline · per-agent attribution · budget caps · metered
+      </div>
+      <div class="vs ha" onclick="sendPrompt('What are machine-verifiable data contracts and how do they enforce authorization across all layers of an agent-ready data architecture?')">
+        k · Authorization · machine-verifiable data contracts · all layers
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dr">
+    <div class="dl"></div>
+    <span class="db">polyglot persistence</span>
+    <div class="dl"></div>
+  </div>
+
+  <div class="sr">
+    <div class="st sg" onclick="sendPrompt('What belongs in the SQL backbone of an agentic polyglot persistence layer — which tables, why Postgres or Supabase, and how does it relate to the layers above?')">
+      <span class="sn sg">SQL backbone</span>
+      <span class="sk2 sg">PostgreSQL<br>Supabase</span>
+    </div>
+    <div class="st sd" onclick="sendPrompt('What flexible-schema data belongs in the document store of an agentic system? When should you use MongoDB over a relational table?')">
+      <span class="sn sd">Document store</span>
+      <span class="sk2 sd">MongoDB<br>Firestore</span>
+    </div>
+    <div class="st sv" onclick="sendPrompt('What embeddings and indexes live in the vector database? How does it serve the retrieval layer, and compare pgvector vs Pinecone for agent workloads.')">
+      <span class="sn sv">Vector DB</span>
+      <span class="sk2 sv">pgvector<br>Pinecone</span>
+    </div>
+    <div class="st sk" onclick="sendPrompt('What entity relationships live in the knowledge graph of an agentic system? How does Neo4j model lead, campaign, and ontology graphs for agents to traverse?')">
+      <span class="sn sk">Knowledge graph</span>
+      <span class="sk2 sk">Neo4j<br>Neptune</span>
+    </div>
+    <div class="st sa" onclick="sendPrompt('What is a content-addressed artifact store and why are prompts, completions, and tool payloads stored by hash in S3 or GCS?')">
+      <span class="sn sa">Artifact store</span>
+      <span class="sk2 sa">S3 / GCS<br>hash-keyed CAS</span>
+    </div>
+    <div class="st sc" onclick="sendPrompt('What agent working memory and session state lives in Redis? How does governed ephemeral memory differ from the persistent memory layer above?')">
+      <span class="sn sc">Cache & memory</span>
+      <span class="sk2 sc">Redis<br>Upstash</span>
+    </div>
+    <div class="st ss" onclick="sendPrompt('What role do Kafka, OpenTelemetry, and ClickHouse play in the streaming and observability store — and how do they feed the governance and cost layers?')">
+      <span class="sn ss">Streaming & obs.</span>
+      <span class="sk2 ss">Kafka · OTel<br>ClickHouse</span>
+    </div>
+  </div>
+
+</div>
